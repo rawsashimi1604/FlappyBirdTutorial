@@ -127,6 +127,7 @@ public class PlayState extends State {
             tube.dispose();
         }
         ground.dispose();
+        gameover.dispose();
         System.out.println("Play State Disposed.");
     }
 
