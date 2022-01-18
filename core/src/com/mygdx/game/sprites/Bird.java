@@ -1,13 +1,17 @@
 package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 public class Bird {
     private static final int GRAVITY = -15;
+    private static final int MOVEMENT = 100;
 
     private Vector3 position; // Vector holds x, y, z coordinates
     private Vector3 velocity;
+
+    private Rectangle bounds;
 
     private Texture bird;
 
@@ -15,6 +19,7 @@ public class Bird {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         bird = new Texture("./images/bird.png");
+        bounds = new Rectangle(x, y, bird.getWidth(), bird.getHeight());
     }
 
     public void update(float dt) {
@@ -25,13 +30,14 @@ public class Bird {
 
         velocity.scl(dt); // Low level delta time thing
 
-        position.add(0, velocity.y, 0);
+        position.add(MOVEMENT * dt, velocity.y, 0);
 
         if (position.y < 0) {
             position.y = 0;
         }
 
         velocity.scl(1/dt); // Low level delta time thing
+        bounds.setPosition(position.x, position.y);
     }
 
     public Vector3 getPosition() {
@@ -44,5 +50,9 @@ public class Bird {
 
     public void jump() {
         velocity.y = 250;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 }
