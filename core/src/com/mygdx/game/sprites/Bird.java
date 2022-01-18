@@ -33,7 +33,6 @@ public class Bird {
     public void update(float dt) {
         birdAnimation.update(dt);
 
-
         if (position.y > 0) {
             velocity.add(0, GRAVITY, 0); // Simulates gravity on bird object.
         }
