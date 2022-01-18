@@ -18,12 +18,12 @@ public class GameStateManager {
     }
 
     public void pop(State state) {
-        states.pop();
+        states.pop().dispose(); // Dispose currently popped State, frees memory.
     }
 
     public void set(State state) {
         // Remove current state, then immediately set new state.
-        states.pop();
+        states.pop().dispose();
         states.push(state);
     }
 
