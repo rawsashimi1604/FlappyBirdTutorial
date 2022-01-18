@@ -8,7 +8,7 @@ Followed Brent Aureli's tutorial on how to recreate Flappy Bird using LibGDX in 
 ## How to run
 Set working directory to `./core/assets`. 
 
-Go to `desktop > src > com > mygdx > game > desktop > DesktopLanucher`
+Go to `desktop > src > com > mygdx > game > desktop > DesktopLauncher`
 and run the `main()` method there.
 
 ## 
