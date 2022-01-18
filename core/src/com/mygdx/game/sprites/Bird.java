@@ -1,6 +1,9 @@
 package com.mygdx.game.sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
@@ -13,16 +16,23 @@ public class Bird {
 
     private Rectangle bounds;
 
-    private Texture bird;
+    private Animation birdAnimation;
+    private Texture texture; // Texture to animate.
+    private Sound flap;
+
 
     public Bird(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        bird = new Texture("./images/bird.png");
-        bounds = new Rectangle(x, y, bird.getWidth(), bird.getHeight());
+        texture = new Texture("./images/birdanimation.png");
+        birdAnimation = new Animation(new TextureRegion(texture), 3, 0.5f);
+        bounds = new Rectangle(x, y, texture.getWidth() / 3, texture.getHeight());
+        flap = Gdx.audio.newSound(Gdx.files.internal("./audio/sfx_wing.ogg"));
     }
 
     public void update(float dt) {
+        birdAnimation.update(dt);
+
 
         if (position.y > 0) {
             velocity.add(0, GRAVITY, 0); // Simulates gravity on bird object.
@@ -44,12 +54,13 @@ public class Bird {
         return position;
     }
 
-    public Texture getTexture() {
-        return bird;
+    public TextureRegion getTexture() {
+        return birdAnimation.getFrame();
     }
 
     public void jump() {
         velocity.y = 250;
+        flap.play(0.5f);
     }
 
     public Rectangle getBounds() {
@@ -57,6 +68,7 @@ public class Bird {
     }
 
     public void dispose() {
-        bird.dispose();
+        texture.dispose();
+        flap.dispose();
     }
 }
